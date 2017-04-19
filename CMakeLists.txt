@@ -127,15 +127,17 @@ if ( WIN32 )
 )
 endif( WIN32 )
 
+FILE(GLOB SourceFiles Classes/*.cpp)
+
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-  Classes/HelloWorldScene.cpp
+  ${SourceFiles}
   ${PLATFORM_SPECIFIC_SRC}
 )
 
+FILE(GLOB SourceHeaders Classes/*.h)
+
 set(GAME_HEADERS
-  Classes/AppDelegate.h
-  Classes/HelloWorldScene.h
+  ${SourceHeaders}
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
@@ -150,7 +152,6 @@ endif()
 
 target_link_libraries(${APP_NAME}
     cocos2d
-    box2d
 )
 
 set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
