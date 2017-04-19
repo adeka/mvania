@@ -16,6 +16,16 @@ public:
     void update(float dt);
     TMXTiledMap * tmx;
     map<string, vector<TileObject *>> tileMap;
+
+    static const int MAPWIDTH = 128;
+    static const int MAPHEIGHT = 50;
+    static const int MAPSIZE = MAPWIDTH * MAPHEIGHT;
+
+    // vector<TileObject *> testTiles;
+    //either use vector or dont use NEW
+    // TileObject * tiles[MAPSIZE];
+    // int intz[MAPSIZE];
+
 private:
 
 };

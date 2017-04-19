@@ -15,11 +15,9 @@ void Level::prepareLayers()
 {
     for (auto& object : this->tmx->getChildren())
     {
-        // is this tmx child a tile layer?
         auto layer = dynamic_cast<TMXLayer*>(object);
         if (layer != nullptr)
         this->createTiles(layer);
-        //
     }
 }
 
@@ -35,8 +33,10 @@ void Level::createTiles(CCTMXLayer* layer)
             Sprite * tileSprite = layer->getTileAt(Point(x, y));
             int id = layer->getTileGIDAt(Point(x, y));
             if (tileSprite) {
-                TileObject * tile = new TileObject(tileSprite, id);
+                TileObject * tile = new TileObject(tileSprite, x, y, id);
                 tiles.push_back(tile);
+            } else {
+                tiles.push_back(nullptr);
             }
         }
     }

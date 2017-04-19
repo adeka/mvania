@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "TileObject.h"
 #include "cocos2d.h"
+#include "SAT.h"
 
 #include <string>
 #include <vector>
@@ -19,33 +20,35 @@ public:
     bool hasContactToTheLeft;
     bool hasContactToTheRight;
     bool hasContactBelow;
+    bool hasContactPeek;
 
     bool isJumping;
     float jumpVel;
     float jumpHeight;
     bool forceFalling;
-    float yOffset;
 
     float gravity;
     float maxFallSpeed;
 
-    float xVel;
     float yVel;
 
     float moveSpeed;
     float friction;
 
+    int direction;
     float dt;
     float step;
     double currentTime;
     double accumulator;
     double lastTickTime;
 
-    bool onSlope;
-    float storedY;
-
     float playerWidth;
     float playerHeight;
+
+    DrawNode * drawNode;
+
+    Vec2 moveVector;
+    Vec2 velocity;
 
     Sprite * sprite;
     Level * level;
@@ -57,12 +60,19 @@ public:
     void moveRight();
     void checkMapCollisions();
     void calculatePosition();
+    void SATCollision();
     void fall();
+
+    vector<TileObject* > getBoundingTiles(int size, string layer);
+    int coordToIndex(int x, int y);
+
+    SAT sat;
+    polygon collider;
 
     void update(float delta);
     void fixedUpdate();
     double getCurrentTimeInSeconds();
     bool rectIntersect(float x, float y, float oWidth, float oHeight, float xTwo, float yTwo, float oTwoWidth, float oTwoHeight);
-    map<string, bool> checkCollision(float tileX, float tileY, float tileWidth, float tileHeight);
+    map<string, bool> checkCollision(TileObject * tile);
 };
 #endif

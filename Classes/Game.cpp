@@ -25,10 +25,10 @@ bool Game::init()
 	float playfield_height = visibleSize.height * 20.0;
 
     level = new Level();
-    this->addChild(level);
+    this->addChild(level, -3);
 
-    player = new Player(80.0f, 100.0f, level);
-    this->addChild(player);
+    player = new Player(80.0f, 270.0f, level);
+    this->addChild(player, -2);
 
     this->scheduleUpdate();
     //last thing this function should do
