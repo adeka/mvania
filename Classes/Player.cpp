@@ -28,6 +28,7 @@ void Player::update(float delta) {
         }
     }
 }
-// void Player::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event) {
+// void Player::o nKeyReleased(EventKeyboard::KeyCode keyCode, Event* event) {
 //     CCLOG("AYYY");
 // }
+ 

@@ -63,7 +63,7 @@ void Actor::fixedUpdate() {
     calculatePosition();
     dt += step;
     SATCollision();
-    // checkMapCollisions();
+
     if(this->isJumping && !this->hasContactAbove) {
         jumpVel = min(jumpVel += .65f, jumpHeight);
     } else {
@@ -126,10 +126,13 @@ void Actor::SATCollision() {
         if(contacts["right"]) {
             this->hasContactToTheRight = true;
         }
+        if(contacts["up"]) {
+          this->hasContactAbove = true;
+        }
     }
 
     // for (auto& tile : level->tileMap["oneway"])
-    // {
+                                      // {
     //     contacts = checkCollision(tile);
     //     if(contacts["down"] && !contacts["up"] && !contacts["left"] && !contacts["right"] && !forceFalling) {
     //         this->hasContactBelow = true;
@@ -178,6 +181,7 @@ map<string, bool> Actor::checkCollision(TileObject * tile) {
     float y = this->getPosition().y;
     float dirOffset = 5.0f;
     float heightOffset = 8.0f;
+    float upOffset = 5.0f;
     // if(isJumping) {
     //     heightOffset = 0.0f;
     // }
@@ -213,6 +217,12 @@ map<string, bool> Actor::checkCollision(TileObject * tile) {
         sat.v(x + velocity.x - dirOffset + width, y + heightOffset + height),
         sat.v(x + velocity.x - dirOffset + width, y + heightOffset)
     );
+    polygon colliderUp = sat.Polygon(4,
+        sat.v(x + velocity.x, y + upOffset),
+        sat.v(x + velocity.x, y + height + upOffset),
+        sat.v(x + velocity.x + width, y + height + upOffset),
+        sat.v(x + velocity.x + width, y + upOffset)
+    );
 
     float yOff = 3.0f;
     float peekSize = 1.0f;
@@ -247,13 +257,14 @@ map<string, bool> Actor::checkCollision(TileObject * tile) {
     bool collidingDown = sat.sat(colliderDown, tile->collider);
     bool collidingLeft = sat.sat(colliderLeft, tile->collider);
     bool collidingRight = sat.sat(colliderRight, tile->collider);
+    bool collidingUp = sat.sat(colliderUp, tile->collider);
 
     // bool collidingPeek = sat.sat(peek, tile->collider);
     // bool collidingAround = sat.sat(colliderAround, tile->collider);
 
     map<string, bool> contacts = {
         {"down", collidingDown},
-        {"up", false},
+        {"up", collidingUp},
         {"left", collidingLeft},
         {"right", collidingRight},
         {"peek", false},

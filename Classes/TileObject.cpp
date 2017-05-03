@@ -18,7 +18,7 @@ TileObject::TileObject(Sprite * sprite, int x, int y, int id) {
 
     moveVector = Vec2(1.0f,0.0f);
     //45
-    if(id == 46) {
+    if(id == 46 || id == 68) {
         collider = sat.Polygon(3,
             sat.v(minX,minY),
             sat.v(minX,maxY),
@@ -28,7 +28,7 @@ TileObject::TileObject(Sprite * sprite, int x, int y, int id) {
         base = tileSize;
     }
     //45
-    else if(id == 45) {
+    else if(id == 45 || id == 66) {
         collider = sat.Polygon(3,
             sat.v(minX,minY),
             sat.v(maxX,maxY),

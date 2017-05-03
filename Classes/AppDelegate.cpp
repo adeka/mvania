@@ -8,8 +8,9 @@ static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
-static cocos2d::Size finalSize = babyBoy;
-static float scale = 1.25f;
+// static cocos2d::Size finalSize = babyBoy;
+static cocos2d::Size finalSize = mediumResolutionSize;
+static float scale = 2.5f;
 AppDelegate::AppDelegate()
 {
 }
@@ -41,7 +42,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
         director->setOpenGLView(glview);
     }
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
     // FileUtils::getInstance()->addSearchPath("/Tilemaps");
     director->setAnimationInterval(1.0f / 60);
     glview->setDesignResolutionSize(finalSize.width/scale, finalSize.height/scale, ResolutionPolicy::NO_BORDER);
